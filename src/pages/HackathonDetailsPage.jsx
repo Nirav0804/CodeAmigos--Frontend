@@ -153,7 +153,6 @@ const HackathonDetailsPage = () => {
             </p>
           </div>
 
-          {/* Uploaded By Section */}
           <div className="flex items-center space-x-4">
             <Link to={`/dashboard/profile/${hackathonData.createdBy}`}>
               <img
@@ -164,11 +163,21 @@ const HackathonDetailsPage = () => {
             </Link>
             <div>
               <p className="font-semibold">Uploaded By</p>
-              <p className="text-gray-300 capitalize">
-                {hackathonData.createdBy}
-              </p>
+              <p className="text-gray-300 capitalize">{hackathonData.createdBy}</p>
             </div>
+
+            {username !== hackathonData.createdBy && (
+              <button
+                className="ml-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition duration-200"
+                onClick={() => {
+                  // handle chat start logic here
+                }}
+              >
+                Chat Now
+              </button>
+            )}
           </div>
+
 
           {/* Dates Section */}
           <div className="space-y-6">
@@ -269,7 +278,7 @@ const HackathonDetailsPage = () => {
                     <p className="text-gray-300 capitalize">{user}</p>
                   </div>
                 ))}
-              </div>  
+              </div>
             </div>
           )}
 

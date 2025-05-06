@@ -13,9 +13,8 @@ const Input = ({ label, error, ...props }) => (
       </label>
     )}
     <input
-      className={`w-full px-3 py-2 bg-gray-900/50 border ${
-        error ? "border-red-500" : "border-gray-700"
-      } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400`}
+      className={`w-full px-3 py-2 bg-gray-900/50 border ${error ? "border-red-500" : "border-gray-700"
+        } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400`}
       {...props}
     />
     {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
@@ -30,9 +29,8 @@ const Textarea = ({ label, error, ...props }) => (
       </label>
     )}
     <textarea
-      className={`w-full px-3 py-2 bg-gray-900/50 border ${
-        error ? "border-red-500" : "border-gray-700"
-      } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400`}
+      className={`w-full px-3 py-2 bg-gray-900/50 border ${error ? "border-red-500" : "border-gray-700"
+        } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400`}
       {...props}
     />
     {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
@@ -73,11 +71,10 @@ const StepIndicator = ({ currentStep, totalSteps }) => (
     {[...Array(totalSteps)].map((_, index) => (
       <React.Fragment key={index}>
         <span
-          className={`h-8 w-8 rounded-full flex items-center justify-center ${
-            index + 1 <= currentStep
-              ? "bg-blue-500 text-white"
-              : "bg-gray-700 text-gray-300"
-          }`}
+          className={`h-8 w-8 rounded-full flex items-center justify-center ${index + 1 <= currentStep
+            ? "bg-blue-500 text-white"
+            : "bg-gray-700 text-gray-300"
+            }`}
         >
           {index + 1}
         </span>
@@ -112,6 +109,7 @@ const HackathonRegistrationForm = () => {
       end: "",
     },
     createdBy: localStorage.getItem("username"),
+    createdById: localStorage.getItem("userId"),
   });
 
   const [formErrors, setFormErrors] = useState({});
