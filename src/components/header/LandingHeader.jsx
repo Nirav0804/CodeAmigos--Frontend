@@ -27,6 +27,12 @@ const LandingHeader = () => {
   //   document.documentElement.classList.add(newTheme);
   // };
 
+
+  const handleGithubLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/github";
+  };
+
+
   return (
     <>
       <header id="about" className="relative min-h-screen overflow-hidden">
@@ -58,15 +64,15 @@ const LandingHeader = () => {
                   <FaSun className="text-yellow-400" />
                 )}
               </motion.button> */}
-              <Link to="/login">
+              <button onClick={() => handleGithubLogin()}>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-blue-800 text-white font-semibold py-2.5 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all"
                 >
-                  Login
+                  GitHub Login
                 </motion.button>
-              </Link>
+              </button>
               <Link to="/register">
                 <motion.button
                   whileHover={{ scale: 1.05 }}

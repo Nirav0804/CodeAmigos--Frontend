@@ -76,6 +76,24 @@ const HackathonDetailsPage = () => {
     }
   }, [text, success]);
 
+
+  const handleChatNow = async () => {
+    try {
+      const currentUserId = localStorage.getItem("userId");
+      const member2Id = hackathonData.createdById;
+      const leader = hackathonData.createdBy;
+      console.log(member2Id);
+      const response = await axios.post(
+        `http://localhost:8080/api/v1/personal_chat/create_or_get_personal_chat/${currentUserId}/${member2Id}`
+      );
+      navigate('/dashboard/chat/');
+      console.log(response);
+    }
+    catch (error) {
+      console.log("Unable to Create or Fetch the Personal Chat.");
+    }
+
+  };
   const handleJoin = async () => {
     try {
       await axios.post("http://localhost:8080/request", requestObject, {
@@ -170,7 +188,7 @@ const HackathonDetailsPage = () => {
               <button
                 className="ml-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition duration-200"
                 onClick={() => {
-                  // handle chat start logic here
+                  handleChatNow()
                 }}
               >
                 Chat Now

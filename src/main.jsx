@@ -10,16 +10,11 @@ import DashboardPage from "./pages/DashboardPage.jsx";
 import HackathonPage from "./pages/HackathonPage.jsx";
 import HackathonRegistrationForm from "./components/forms/HackathonRegistrationForm.jsx";
 import HackathonDetailsPage from "./pages/HackathonDetailsPage.jsx";
-// import CollegeChatPage from "./pages/CollegeChatPage.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
 import HackathonRequestPage from "./pages/HackathonRequestPage.jsx";
 import HackathonRequestStatusPage from "./pages/HackathonRequestStatusPage.jsx";
-// import CollegeChatUsersPage from "./pages/CollegeChatUsersPage.jsx";
 // import ProfileEditForm from "./components/forms/ProfileEditForm.jsx";
-// import StudyGroupPage from "./pages/StudyGroupPage.jsx";
-// import CreateStudyGroup from "./components/studygroup/CreateStudyGroup.jsx";
-// import StudyGroupUsers from "./components/studygroup/StudyGroupUsers.jsx";
-// import ChatDropDown from "./components/Chat/ChatDropDown.jsx";
+import ChatDropDown from "./components/Chat/ChatDropDown.jsx";
 const appRouter = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/register", element: <RegistrationForm /> },
@@ -31,13 +26,8 @@ const appRouter = createBrowserRouter([
   { path: "/dashboard/hackathons/:id", element: <HackathonDetailsPage /> },
   { path: "/dashboard/hackathons/requests", element: <HackathonRequestPage /> },
   { path: "/dashboard/hackathons/requests/status", element: <HackathonRequestStatusPage /> },
-  // { path: "/dashboard/college-chat/", element: <CollegeChatPage /> },
-  // { path: "dashboard/college-chat/:roomId/users", element: <CollegeChatUsersPage /> },
   // { path: "/dashboard/profile/:username/edit", element: <ProfileEditForm /> },
-  // { path: "/dashboard/study-groups", element: <StudyGroupPage /> },
-  // { path: "/dashboard/study-group/create-study-group", element: <CreateStudyGroup /> },
-  // { path: "/dashboard/study-group/:groupName/users", element: <StudyGroupUsers /> },
-  // { path: "/dashboard/chat", element: <ChatDropDown /> }
+  { path: "/dashboard/chat", element: <ChatDropDown /> }
 ]);
 
 createRoot(document.getElementById("root")).render(
