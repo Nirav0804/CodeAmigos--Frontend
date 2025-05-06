@@ -207,9 +207,8 @@ const RegistrationForm = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-lg shadow-md hover:from-blue-700 hover:to-purple-700 hover:scale-105 transition-transform transform ${
-                  loading ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                className={`w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-lg shadow-md hover:from-blue-700 hover:to-purple-700 hover:scale-105 transition-transform transform ${loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
               >
                 {loading ? "Registering..." : "Register"}
               </button>
