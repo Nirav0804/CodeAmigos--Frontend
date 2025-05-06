@@ -63,6 +63,7 @@ const LoginForm = () => {
       setSuccess(true);
       localStorage.setItem("username", data.username);
       localStorage.setItem("userId", data.id);
+      localStorage.setItem("githubUsername", data.githubUsername);
       httpClient.defaults.headers.common['username'] = data.username;
       localStorage.setItem("college", data.collegeName);
       setCurrentUser(data.username);

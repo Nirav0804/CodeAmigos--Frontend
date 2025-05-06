@@ -86,7 +86,7 @@ const HackathonDetailsPage = () => {
       const response = await axios.post(
         `http://localhost:8080/api/v1/personal_chat/create_or_get_personal_chat/${currentUserId}/${member2Id}`
       );
-      navigate('/dashboard/chat/');
+      navigate('/dashboard/chat?leader=' + leader);
       console.log(response);
     }
     catch (error) {

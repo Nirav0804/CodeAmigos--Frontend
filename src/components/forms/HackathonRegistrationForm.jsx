@@ -108,7 +108,7 @@ const HackathonRegistrationForm = () => {
       start: "",
       end: "",
     },
-    createdBy: localStorage.getItem("username"),
+    createdBy: localStorage.getItem("githubUsername"),
     createdById: localStorage.getItem("userId"),
   });
 
