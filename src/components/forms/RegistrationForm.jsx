@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useSearchParams } from 'react-router-dom';
 const RegistrationForm = () => {
   const features = [
     "Real-time Group Chats",
@@ -14,15 +14,35 @@ const RegistrationForm = () => {
   ];
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const [user, setUser] = useState({
+    username: '',
+    id: ''
+  });
+
+  useEffect(() => {
+    const username = searchParams.get("username");
+    const id = searchParams.get("id");
+
+    setUser({ username });
+
+    setFormData((prev) => ({
+      ...prev,
+      githubUsername: username || "",
+      id: id || ""
+    }));
+  }, [searchParams]);
 
   // Form state
   const [formData, setFormData] = useState({
+    id: user.id,
     username: "",
     displayName: "",
     password: "",
     email: "",
     collegeName: "",
-    githubUsername: "",
+    githubUsername: user.username,
     leetcodeUsername: "",
     codechefUsername: "",
     hackerrankUsername: "",
@@ -160,6 +180,7 @@ const RegistrationForm = () => {
                 name: "githubUsername",
                 type: "text",
                 placeholder: "e.g., ompatel22",
+                readOnly: true
               },
               {
                 label: "LeetCode Username",
@@ -199,8 +220,11 @@ const RegistrationForm = () => {
                   value={formData[field.name]}
                   onChange={handleInputChange}
                   placeholder={field.placeholder}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 placeholder-gray-400 border border-gray-600 focus:ring-4 focus:ring-blue-500 focus:outline-none transition-all"
+                  readOnly={field.readOnly || false}
+                  className={`w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 placeholder-gray-400 border border-gray-600 focus:ring-4 focus:ring-blue-500 focus:outline-none transition-all ${field.readOnly ? "cursor-not-allowed bg-gray-600" : ""
+                    }`}
                 />
+
               </div>
             ))}
             <div className="col-span-1 sm:col-span-2">
