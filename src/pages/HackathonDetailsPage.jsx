@@ -81,7 +81,7 @@ const HackathonDetailsPage = () => {
     try {
       const currentUserId = localStorage.getItem("userId");
       const member2Id = hackathonData.createdById;
-      const leader = hackathonData.createdBy;
+      const leader = hackathonData.createdBy;   
       console.log(member2Id);
       const response = await axios.post(
         `http://localhost:8080/api/v1/personal_chat/create_or_get_personal_chat/${currentUserId}/${member2Id}`

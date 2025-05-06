@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Navigation from "../navigation/Navigation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { debounce } from "lodash";
 import { FaSearch } from "react-icons/fa";
@@ -18,6 +18,7 @@ function ChatDropDown() {
     const [currentUserId, setCurrentUserId] = useState("");
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const userId = localStorage.getItem("userId");
@@ -50,6 +51,21 @@ function ChatDropDown() {
             console.error("Failed to fetch personal chats:", error);
         }
     };
+
+    // Handle query parameter to open chat directly based on leader
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const leaderName = queryParams.get("leader");
+        if (leaderName && personalChats.length > 0) {
+            const matchingChat = personalChats.find(
+                (chat) => chat.githubUserName.toLowerCase() === leaderName.toLowerCase()
+            );
+            if (matchingChat) {
+                setMember2Id(matchingChat.id);
+                setMember2Name(matchingChat.githubUserName);
+            }
+        }
+    }, [personalChats, location.search]);
 
     const handlePersonalChatClick = (username, id) => {
         setMember2Id(id);
