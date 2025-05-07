@@ -20,66 +20,69 @@ function ChatDropDown() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // Initialize user and fetch chats
     useEffect(() => {
-        const userId = localStorage.getItem("userId");
-        const username = localStorage.getItem("username");
-        if (!username) navigate("/login");
-        setCurrentUserId(userId);
-    }, [navigate]);
-
-    useEffect(() => {
-        if (currentUserId) {
-            fetchPersonalChat();
-        }
-    }, [currentUserId]);
-
-    const fetchPersonalChat = async () => {
-        try {
-            const response = await axios.get(`http://localhost:8080/api/v1/personal_chat/all_personal_chats/${currentUserId}`);
-            const sortedPersonalChat = response.data.sort((a, b) => {
-                const latestA = a.messages?.length
-                    ? new Date(a.messages[a.messages.length - 1].timestamp).getTime()
-                    : 0;
-                const latestB = b.messages?.length
-                    ? new Date(b.messages[b.messages.length - 1].timestamp).getTime()
-                    : 0;
-                return latestB - latestA;
-            });
-            setFilteredPersonalChats(sortedPersonalChat);
-            setPersonalChats(sortedPersonalChat);
-        } catch (error) {
-            console.error("Failed to fetch personal chats:", error);
-        }
-    };
-
-    // Handle query parameter to open chat directly based on leader
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const leaderName = queryParams.get("leader");
-        if (leaderName && personalChats.length > 0) {
-            const matchingChat = personalChats.find(
-                (chat) => chat.githubUserName.toLowerCase() === leaderName.toLowerCase()
-            );
-            if (matchingChat) {
-                console.log(matchingChat);
-                console.log(matchingChat.member2Name);
-
-                setMember2Id(matchingChat.id);
-                setMember2Name(matchingChat.githubUsername);
+        const initialize = async () => {
+            const userId = localStorage.getItem("userId");
+            const username = localStorage.getItem("username");
+            if (!username) {
+                navigate("/login");
+                return;
             }
+            setCurrentUserId(userId);
+
+            if (userId) {
+                try {
+                    // Fetch personal chats
+                    const response = await axios.get(`http://localhost:8080/api/v1/personal_chat/all_personal_chats/${userId}`);
+                    const sortedPersonalChat = response.data.sort((a, b) => {
+                        const latestA = a.messages?.length
+                            ? new Date(a.messages[a.messages.length - 1].timestamp).getTime()
+                            : 0;
+                        const latestB = b.messages?.length
+                            ? new Date(b.messages[b.messages.length - 1].timestamp).getTime()
+                            : 0;
+                        return latestB - latestA;
+                    });
+                    setPersonalChats(sortedPersonalChat);
+                    setFilteredPersonalChats(sortedPersonalChat);
+
+                    // Process query parameter after chats are loaded
+                    const queryParams = new URLSearchParams(location.search);
+                    const leaderName = queryParams.get("leader");
+                    if (leaderName && sortedPersonalChat.length > 0) {
+                        const matchingChat = sortedPersonalChat.find(
+                            (chat) => chat.githubUserName.toLowerCase() === leaderName.toLowerCase()
+                        );
+                        if (matchingChat) {
+                            console.log("Matching chat found:", matchingChat);
+                            setMember2Id(matchingChat.id);
+                            setMember2Name(matchingChat.githubUserName); // Ensure this matches API response
+                        } else {
+                            console.log("No matching chat found for leader:", leaderName);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Failed to fetch personal chats:", error);
+                }
+            }
+        };
+
+        initialize();
+    }, [navigate, location.search]);
+
+    // Open chat when member2Id and member2Name are set
+    useEffect(() => {
+        if (member2Id && member2Name) {
+            console.log("Opening chat for:", member2Name, member2Id);
+            setPersonalChatOpen(true);
         }
-    }, [personalChats, location.search]);
+    }, [member2Id, member2Name]);
 
     const handlePersonalChatClick = (member2Name, id) => {
         setMember2Id(id);
         setMember2Name(member2Name);
     };
-
-    useEffect(() => {
-        if (member2Id && member2Name) {
-            setPersonalChatOpen(true);
-        }
-    }, [member2Id, member2Name]);
 
     const debouncedSearch = useCallback(
         debounce((query) => {
