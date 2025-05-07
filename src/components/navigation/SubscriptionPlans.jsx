@@ -5,7 +5,10 @@ import PaymentSuccessCard from "./PaymentSuccess";
 
 const SubscriptionPlans = () => {
   const navigate = useNavigate();
-
+  const username = localStorage.getItem("username");
+    const githubUserName = localStorage.getItem("githubUsername");
+    const userId = localStorage.getItem("userId");
+    const status = localStorage.getItem("status");
   const [showPaymentSuccessCard, setShowPaymentSuccessCard] = useState(false);
 
 
@@ -88,7 +91,7 @@ const SubscriptionPlans = () => {
             <li>🚫 No Premium Chat</li>
           </ul>
           <button
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/dashboard?username=" + username + "&userId=" + userId + "&githubUsername=" + githubUserName + "&status=" + status)}
             className="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg w-full"
           >
             Free
