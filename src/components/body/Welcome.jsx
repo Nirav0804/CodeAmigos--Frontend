@@ -1,10 +1,10 @@
 import React from 'react';
 import FeatureSection from '../features/FeatureSection';
 
-const Welcome = () => {
-  const text="Welcome "+localStorage.getItem("username")+"!";
+const Welcome = ({ text }) => {
+  const texts = `Welcome ${text}`;
   return (
-        <FeatureSection text={text} />
+    <FeatureSection text={texts} />
   );
 };
 

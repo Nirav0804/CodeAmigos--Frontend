@@ -3,11 +3,25 @@ import Navigation from "../components/navigation/Navigation";
 import GradientBackground from "../components/background/GradientBackground";
 import Welcome from "../components/body/Welcome";
 import Footer from "../components/footer/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useSearchParams } from "react-router-dom";
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    const username = searchParams.get("username");
+    const id = searchParams.get("userId");
+    const githubUsername = searchParams.get("githubUsername");
+
+    localStorage.setItem("username", username);
+    localStorage.setItem("userId", id);
+    localStorage.setItem("githubUsername", githubUsername);
+    setUser(username);
+  }, [searchParams]);
+
+
 
   useEffect(() => {
     // Get the username from localStorage or from a global state if stored after login
@@ -15,14 +29,14 @@ const DashboardPage = () => {
 
     if (!username) {
       // If no username found in localStorage, redirect to login
-      navigate("/login");
+      navigate("/landingPage");
     }
   }, [navigate]);
 
   return (
     <GradientBackground className="min-h-screen">
       <Navigation />
-      <Welcome />
+      <Welcome text={user} />
       <Footer />
     </GradientBackground>
   );

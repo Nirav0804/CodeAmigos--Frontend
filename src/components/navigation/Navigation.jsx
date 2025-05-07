@@ -10,6 +10,9 @@ const Navigation = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("college");
+    localStorage.removeItem("githubUsername");
     navigate("/");
   };
 
@@ -75,7 +78,7 @@ const Navigation = () => {
           <FaTimes size={28} />
         </button>
         <div className="mt-10 space-y-6">
-          <NavItem to="/dashboard/study-groups" icon={<FaUsers />} onClick={() => setMenuOpen(false)}>Study Groups</NavItem>
+          <NavItem to="/dashboard/chat" icon={<FaUsers />} onClick={() => setMenuOpen(false)}>Personal Chat</NavItem>
           <NavItem to="/dashboard/hackathons" icon={<FaCode />} onClick={() => setMenuOpen(false)}>Hackathons</NavItem>
           <NavItem to={`/dashboard/profile/${username}`} icon={<FaUser />} onClick={() => setMenuOpen(false)}>
             <Username username={username} />

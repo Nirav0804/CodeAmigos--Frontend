@@ -73,15 +73,6 @@ const LandingHeader = () => {
                   GitHub Login
                 </motion.button>
               </button>
-              <Link to="/register">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-purple-800 text-white font-semibold py-2.5 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all"
-                >
-                  Register
-                </motion.button>
-              </Link>
             </div>
           </motion.div>
 
@@ -104,18 +95,13 @@ const LandingHeader = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               Showcase your coding achievements, find teammates for hackathons,
-              and join study groups.
+              and connet with peers.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Link to="/register">
-                <button className="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-                  Get Started Now
-                </button>
-              </Link>
             </motion.div>
           </div>
         </div>

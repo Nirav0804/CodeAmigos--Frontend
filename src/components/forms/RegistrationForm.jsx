@@ -86,7 +86,16 @@ const RegistrationForm = () => {
       }
 
       setSuccess(true);
-      setTimeout(() => navigate("/login"), 1000);
+      console.log(data);
+      console.log(data.username);
+      console.log(data.id);
+      console.log(data.githubUsername);
+
+      localStorage.setItem("username", "hello");
+      localStorage.setItem("userId", data.id);
+      localStorage.setItem("githubUsername", data.githubUsername);
+      setTimeout(() => navigate(`/dashboard?username=${data.username}&userId=${data.id}&githubUsername=${data.githubUsername}`), 1000);
+      // debugger;
     } catch (err) {
       setError(err.message);
     } finally {
