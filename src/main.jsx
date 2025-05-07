@@ -14,12 +14,14 @@ import { ChatProvider } from "./context/ChatContext.jsx";
 import HackathonRequestPage from "./pages/HackathonRequestPage.jsx";
 import HackathonRequestStatusPage from "./pages/HackathonRequestStatusPage.jsx";
 // import ProfileEditForm from "./components/forms/ProfileEditForm.jsx";
+import SubscriptionPlans from "./components/navigation/SubscriptionPlans.jsx";
 import ChatDropDown from "./components/Chat/ChatDropDown.jsx";
 const appRouter = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/register", element: <RegistrationForm /> },
   { path: "/login", element: <LoginForm /> },
   { path: "/dashboard", element: <DashboardPage /> },
+  { path: "/subscription", element: <SubscriptionPlans /> },
   // { path: "/dashboard/profile/:username", element: <ProfilePage /> },
   { path: "/dashboard/hackathons", element: <HackathonPage /> },
   { path: "/dashboard/hackathons/add", element: <HackathonRegistrationForm /> },

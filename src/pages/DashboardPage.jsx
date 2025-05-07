@@ -14,10 +14,11 @@ const DashboardPage = () => {
     const username = searchParams.get("username");
     const id = searchParams.get("userId");
     const githubUsername = searchParams.get("githubUsername");
-
+    const status = searchParams.get("status");
     localStorage.setItem("username", username);
     localStorage.setItem("userId", id);
     localStorage.setItem("githubUsername", githubUsername);
+    localStorage.setItem("status", status);
     setUser(username);
   }, [searchParams]);
 

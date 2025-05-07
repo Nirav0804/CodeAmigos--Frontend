@@ -1,5 +1,5 @@
 import { Link, useNavigate, NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaUser, FaSignOutAlt, FaUsers, FaComments, FaCode } from "react-icons/fa";
 import Username from "./Username";
 import NavItem from "./NavItem";
@@ -7,14 +7,21 @@ const Navigation = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const username = localStorage.getItem("username");
+  const [showPaymentSuccessCard, setShowPaymentSuccessCard] = useState(false);
 
+  const [status, setStatus] = useState("");
   const handleLogout = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("userId");
     localStorage.removeItem("college");
     localStorage.removeItem("githubUsername");
+    localStorage.removeItem("status");
     navigate("/");
   };
+  useEffect(() => {
+    const s = localStorage.getItem("status");
+    setStatus(s);
+  }, []);
 
   return (
     <nav className="bg-gray-900/80 backdrop-blur-lg text-white shadow-lg fixed w-full z-50">
@@ -24,6 +31,21 @@ const Navigation = () => {
             CodeAmigos 🚀
           </Link>
           <div className="hidden md:flex items-center space-x-8">
+            {status === "paid" ? (
+              <span className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold rounded-lg shadow-md animate-pulse">
+                Premium Member 💎
+              </span>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate("/subscription");
+                  setMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white transition duration-300 w-52"
+              >
+                Subscribe
+              </button>
+            )}
             <NavLink
               to="/dashboard/chat"
               className={({ isActive }) =>
@@ -95,6 +117,7 @@ const Navigation = () => {
           </button>
         </div>
       </div>
+      {showPaymentSuccessCard && <PaymentSuccessCard />}
     </nav>
   );
 };
