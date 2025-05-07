@@ -30,6 +30,8 @@ const RegistrationForm = () => {
     setFormData((prev) => ({
       ...prev,
       githubUsername: username || "",
+      username: username || "",
+      displayName: username || "",
       id: id || ""
     }));
   }, [searchParams]);
@@ -37,8 +39,8 @@ const RegistrationForm = () => {
   // Form state
   const [formData, setFormData] = useState({
     id: user.id,
-    username: "",
-    displayName: "",
+    username: user.username,
+    displayName: user.username,
     password: "",
     email: "",
     collegeName: "",
@@ -154,42 +156,18 @@ const RegistrationForm = () => {
           >
             {[
               {
-                label: "Username",
-                name: "username",
-                type: "text",
-                placeholder: "e.g., om_patel_22",
-              },
-              {
-                label: "Name",
-                name: "displayName",
-                type: "text",
-                placeholder: "e.g., Om Patel",
-              },
-              {
                 label: "Password",
                 name: "password",
                 type: "password",
                 placeholder: "Enter a strong password",
-              },
-              {
-                label: "email",
-                name: "email",
-                type: "email",
-                placeholder: "e.g., omupatel22@gmail.com",
-
-              },
-              {
-                label: "College Name",
-                name: "collegeName",
-                type: "text",
-                placeholder: "e.g., DDU University",
+                required: true,
               },
               {
                 label: "GitHub Username",
                 name: "githubUsername",
                 type: "text",
                 placeholder: "e.g., ompatel22",
-                readOnly: true
+                readOnly: true,
               },
               {
                 label: "LeetCode Username",
@@ -203,22 +181,17 @@ const RegistrationForm = () => {
                 type: "text",
                 placeholder: "e.g., ompatel22",
               },
-              // {
-              //   label: "HackerRank Username",
-              //   name: "hackerrankUsername",
-              //   type: "text",
-              //   placeholder: "e.g., ompatel22",
-              // },
-              // {
-              //   label: "Codeforces Username",
-              //   name: "codeforcesUsername",
-              //   type: "text",
-              //   placeholder: "e.g., ompatel22",
-              // },
+              {
+                label: "GitHub email",
+                name: "email",
+                type: "email",
+                placeholder: "e.g., omupatel22@gmail.com",
+              },
             ].map((field) => (
               <div
                 key={field.name}
-                className="col-span-1 hover:scale-105 transition-transform transform"
+                className={`${field.label === "GitHub email" ? "sm:col-span-2" : "col-span-1"
+                  } hover:scale-105 transition-transform transform`}
               >
                 <label className="block text-lg font-medium text-gray-300 mb-2">
                   {field.label}
@@ -233,7 +206,6 @@ const RegistrationForm = () => {
                   className={`w-full px-4 py-3 rounded-lg bg-gray-700 text-gray-200 placeholder-gray-400 border border-gray-600 focus:ring-4 focus:ring-blue-500 focus:outline-none transition-all ${field.readOnly ? "cursor-not-allowed bg-gray-600" : ""
                     }`}
                 />
-
               </div>
             ))}
             <div className="col-span-1 sm:col-span-2">

@@ -61,15 +61,18 @@ function ChatDropDown() {
                 (chat) => chat.githubUserName.toLowerCase() === leaderName.toLowerCase()
             );
             if (matchingChat) {
+                console.log(matchingChat);
+                console.log(matchingChat.member2Name);
+
                 setMember2Id(matchingChat.id);
-                setMember2Name(matchingChat.githubUserName);
+                setMember2Name(matchingChat.githubUsername);
             }
         }
     }, [personalChats, location.search]);
 
-    const handlePersonalChatClick = (username, id) => {
+    const handlePersonalChatClick = (member2Name, id) => {
         setMember2Id(id);
-        setMember2Name(username);
+        setMember2Name(member2Name);
     };
 
     useEffect(() => {
