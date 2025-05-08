@@ -567,9 +567,9 @@ const HackathonRegistrationForm = () => {
                   <>
                     <div className="space-y-2">
                       <label className="block text-sm font-medium text-gray-200">
-                        Team Size
+                        Team Size(min)
                       </label>
-                      <div className="flex space-x-4">
+                      <div className="space-x-4">
                         <Input
                           type="number"
                           placeholder="Min Team Size"
@@ -580,10 +580,13 @@ const HackathonRegistrationForm = () => {
                               min: parseInt(e.target.value),
                             })
                           }
-                          className="w-24"
+                          className="w-24 bg-white"
                           min="1"
                           error={formErrors.teamSizeMin}
                         />
+                        <label className="text-sm font-medium text-gray-200">
+                        Team size(max)
+                        </label>
                         <Input
                           type="number"
                           placeholder="Max Team Size"
@@ -594,7 +597,7 @@ const HackathonRegistrationForm = () => {
                               max: parseInt(e.target.value),
                             })
                           }
-                          className="w-24"
+                          className="w-24 bg-white"
                           min={formData.teamSize.min}
                           error={formErrors.teamSizeMax}
                         />
