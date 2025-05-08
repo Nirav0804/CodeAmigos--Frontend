@@ -20,7 +20,8 @@ const Navigation = () => {
   };
 
   const handleRedirect = () => {
-    navigate(`/dashboard?username=${username}`);
+    const status = localStorage.getItem("status");
+    navigate(`/dashboard?username=${username}&status=${status}`);
   }
 
   useEffect(() => {
