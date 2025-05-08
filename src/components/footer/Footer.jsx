@@ -23,7 +23,8 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center space-x-6 md:space-x-12 mb-6">
             <a href="#about" className="hover:text-blue-400 transition duration-300">About</a>
             <a href="#features" className="hover:text-blue-400 transition duration-300">Features</a>
-            <a className="hover:text-blue-400 transition duration-300">Contact</a>
+            <a href="mailto:codeamigos7@gmail.com" className="hover:text-blue-400 transition duration-300">Contact</a>
+
             <a className="hover:text-blue-400 transition duration-300">Privacy Policy</a>
           </div>
           <div className="flex justify-center space-x-6 text-2xl mb-6">
@@ -41,7 +42,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="text-gray-400">&copy; {currentYear} CodeAmigos. All Rights Reserved.</p>
-          <p className="text-gray-400">Made for students by students.</p>
+          <p className="text-gray-400">Made for Developers by Developers.</p>
         </motion.div>
       </div>
     </footer>

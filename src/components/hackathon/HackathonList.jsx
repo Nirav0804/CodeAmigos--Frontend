@@ -51,6 +51,23 @@ const HackathonList = ({
       setHackathons(data);
       setFilteredHackathons(data);
     }
+    if(type == "recommended"){
+      console.log("Hello");
+      
+      const response = await fetch(
+        `http://localhost:8080/api/hackathons/recommended-hackathons?username=${username}`
+      );
+      const data = await response.json();
+      console.log(data);
+      
+      if(data.length==0){
+        setHackathons(["No recommended Hacathons found"])
+      }else{
+        const hackathons = data.map(item => item.hackathon)
+        setHackathons(hackathons);
+        setFilteredHackathons(hackathons);
+      }
+    }
   };
 
   useEffect(() => {
@@ -58,7 +75,6 @@ const HackathonList = ({
     fetchHackathons();
   }, [type, latitude, longitude]);
   
-
   return (
     <>
       {

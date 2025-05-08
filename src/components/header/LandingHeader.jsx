@@ -77,6 +77,15 @@ const LandingHeader = () => {
           </motion.div>
 
           <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
+              {/* Logo */}
+  <motion.img
+    src="src\logoN.png"  // Replace with the actual path to your logo
+    alt="logot"
+    className="mb-15 w-80 h-75"  // Adjust the width and height as needed
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: 0.2 }}
+  />
             <motion.h1
               className="text-7xl font-extrabold mb-8 text-white"
               initial={{ opacity: 0, y: 20 }}
@@ -86,7 +95,7 @@ const LandingHeader = () => {
               <span className="text-10xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
                 Connect, Collaborate, Conquer
               </span>{" "}
-              🚀
+              
             </motion.h1>
             <motion.p
               className="text-xl mb-12 max-w-3xl text-gray-300 leading-relaxed"
@@ -94,9 +103,7 @@ const LandingHeader = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Showcase your coding achievements, find teammates for hackathons,
-              and connet with peers.
-            </motion.p>
+              Showcase your GitHub, LeetCode, and CodeChef profiles, build your dream team with matching tech stacks, and chat securely. Upgrade to premium for personalized hackathon recommendations by skill and city with CodeAmigos.</motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
