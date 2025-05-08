@@ -173,19 +173,19 @@ const RegistrationForm = () => {
                 label: "LeetCode Username",
                 name: "leetcodeUsername",
                 type: "text",
-                placeholder: "e.g., ompatel22",
+                placeholder: "e.g., khushi703",
               },
               {
                 label: "CodeChef Username",
                 name: "codechefUsername",
                 type: "text",
-                placeholder: "e.g., ompatel22",
+                placeholder: "e.g., nirav0804",
               },
               {
                 label: "GitHub email",
                 name: "email",
                 type: "email",
-                placeholder: "e.g., omupatel22@gmail.com",
+                placeholder: "e.g., nayanthacker28@gmail.com",
               },
             ].map((field) => (
               <div
