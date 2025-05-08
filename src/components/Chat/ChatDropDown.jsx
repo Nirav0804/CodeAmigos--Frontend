@@ -35,7 +35,10 @@ function ChatDropDown() {
                 try {
                     // Fetch personal chats
                     const response = await axios.get(`http://localhost:8080/api/v1/personal_chat/all_personal_chats/${userId}`);
-                    const sortedPersonalChat = response.data.sort((a, b) => {
+                    console.log(response.data);
+                    
+                    const sortedPersonalChat = response.data
+                    .sort((a, b) => {
                         const latestA = a.messages?.length
                             ? new Date(a.messages[a.messages.length - 1].timestamp).getTime()
                             : 0;

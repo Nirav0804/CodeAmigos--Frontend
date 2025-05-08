@@ -21,7 +21,8 @@ const Navigation = () => {
 
   const handleRedirect = () => {
     const status = localStorage.getItem("status");
-    navigate(`/dashboard?username=${username}&status=${status}`);
+    const userId = localStorage.getItem("userId");
+    navigate(`/dashboard?username=${username}&status=${status}&userId=${userId}&githubUsername=${username}`);
   }
 
   useEffect(() => {
