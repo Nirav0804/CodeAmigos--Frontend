@@ -80,6 +80,7 @@ function ChatDropDown() {
     }, [member2Id, member2Name]);
 
     const handlePersonalChatClick = (member2Name, id) => {
+        localStorage.setItem("key", "W05eZAlBso9GxmeNkXOYf5whKff883TkQ/hsUn3QaBE7s3fJIxBLPz+9ETkypxOz")
         setMember2Id(id);
         setMember2Name(member2Name);
     };
@@ -135,19 +136,15 @@ function ChatDropDown() {
                                         <div>
                                             <h3 className="text-md font-bold text-gray-200">{personalChat.githubUserName}</h3>
                                             <div className="text-sm text-gray-400">
-                                                {personalChat.messages?.length > 0 ? (
+                                                {/* {personalChat.messages?.length > 0 ? (
                                                     <>
                                                         <span className="font-semibold text-white">
                                                             {personalChat.messages[personalChat.messages.length - 1]?.sender || "Unknown"}:
                                                         </span>{" "}
-                                                        {personalChat.messages[personalChat.messages.length - 1]?.content || "No content"} •{" "}
-                                                        <span className="text-gray-500">
-                                                            {timeAgo(personalChat.messages[personalChat.messages.length - 1]?.timestamp)}
-                                                        </span>
                                                     </>
                                                 ) : (
                                                     "No messages yet"
-                                                )}
+                                                )} */}
                                             </div>
                                         </div>
                                     </div>

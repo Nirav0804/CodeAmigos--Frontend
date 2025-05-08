@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import EmojiPicker from "emoji-picker-react";
+import { encrypt, decrypt } from "../../config/EncryptDecrypt";
 
 const PersonalChatChat = ({ memberId, memberName }) => {
     const [connected, setConnected] = useState(false);
@@ -42,25 +43,54 @@ const PersonalChatChat = ({ memberId, memberName }) => {
     useEffect(() => {
         const loadMessages = async () => {
             if (!currentUserId || !member2Id) return;
-            const sortedChatId = [currentUserId, member2Id].sort().join("/");
+            const sortedChatId = [currentUserId, member2Id].sort().join('/');
 
             try {
+                const secretKey = localStorage.getItem('key');
+                if (!secretKey) {
+                    console.error('No encryption key found in localStorage');
+                    setMessages([]);
+                    return;
+                }
+
                 const response = await axios.get(
                     `http://localhost:8080/api/v1/personal_chat/all_messages/${sortedChatId}`
                 );
 
-                console.log("API Response:", response); // ✅ Debugging
+                console.log('API Response:', response.data); // Debugging
+
                 if (Array.isArray(response.data)) {
-                    setMessages(response.data);
+                    // Decrypt all messages
+                    const decryptedMessages = await Promise.all(
+                        response.data.map(async (message) => {
+                            try {
+                                // Check if content exists and is a string
+                                if (!message.content || typeof message.content !== 'string') {
+                                    console.warn(`Invalid content for message at ${message.timestamp}:`, message.content);
+                                    return { ...message, content: '[Invalid Content]' };
+                                }
+
+                                // Assume content is base64-encoded encrypted data
+                                const decryptedContent = await decrypt(message.content, secretKey);
+                                return { ...message, content: decryptedContent };
+                            } catch (decryptError) {
+                                console.error(`Failed to decrypt message at ${message.timestamp}:`, decryptError);
+                                return { ...message, content: '[Decryption Failed]' };
+                            }
+                        })
+                    );
+
+                    console.log('Decrypted Messages:', decryptedMessages); // Debugging
+                    setMessages(decryptedMessages);
                 } else {
-                    console.error("Expected an array, but got:", response.data);
-                    setMessages([]); // Fallback to an empty array
+                    console.error('Expected an array, but got:', response.data);
+                    setMessages([]); // Fallback to empty array
                 }
             } catch (error) {
-                console.error("Error loading messages:", error);
+                console.error('Error loading messages:', error);
+                setMessages([]); // Fallback to empty array
             }
         };
-
 
         if (connected) {
             loadMessages();
@@ -91,12 +121,19 @@ const PersonalChatChat = ({ memberId, memberName }) => {
             setConnected(true);
             toast.success("Connected to chat");
 
-            console.log(`Subscribed to: /api/v1/topic/personal_chat/${sortedChatId}`);
+            console.log(`Subscribed to:/api/v1/topic/personal_chat/${sortedChatId}`);
 
-            client.subscribe(`/api/v1/topic/personal_chat/${sortedChatId}`, (message) => {
+            client.subscribe(`/api/v1/topic/personal_chat/${sortedChatId}`, async (message) => {
+
                 const newMessage = JSON.parse(message.body);
-                console.log("New message received:", newMessage);
 
+                console.log("New message received:", newMessage.content);
+                const msg = newMessage.content;
+                const key = localStorage.getItem("key");
+                console.log(key);
+
+                const decryptMsg = await decrypt(msg, key);
+                newMessage.content = decryptMsg;
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
 
                 setTimeout(() => {
@@ -116,11 +153,18 @@ const PersonalChatChat = ({ memberId, memberName }) => {
         };
     }, [currentUserId, member2Id]);
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (stompClientRef.current && connected && input.trim()) {
+            const key = localStorage.getItem("key");
+            console.log(key);
+
+            const simpleMessgae = input;
+            const EncryptMsg = await encrypt(simpleMessgae, key);
+            console.log("Encrypted Message:", EncryptMsg);
+
             const message = {
                 sender: currentUser,
-                content: input,
+                content: EncryptMsg,
                 timestamp: new Date().toISOString(),
             };
             const sortedChatId = [currentUserId, member2Id].sort().join("/");
