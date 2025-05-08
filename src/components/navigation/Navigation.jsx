@@ -18,6 +18,11 @@ const Navigation = () => {
     localStorage.removeItem("status");
     navigate("/");
   };
+
+  const handleRedirect = () => {
+    navigate(`/dashboard?username=${username}`);
+  }
+
   useEffect(() => {
     const s = localStorage.getItem("status");
     setStatus(s);
@@ -27,7 +32,7 @@ const Navigation = () => {
     <nav className="bg-gray-900/80 backdrop-blur-lg text-white shadow-lg fixed w-full z-50">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <Link to="/dashboard" className="text-3xl font-extrabold tracking-wide text-blue-400">
+          <Link onClick={() => handleRedirect()} className="text-3xl font-extrabold tracking-wide text-blue-400">
             CodeAmigos 🚀
           </Link>
           <div className="hidden md:flex items-center space-x-8">

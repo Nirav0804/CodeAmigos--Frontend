@@ -13,7 +13,7 @@ import HackathonDetailsPage from "./pages/HackathonDetailsPage.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
 import HackathonRequestPage from "./pages/HackathonRequestPage.jsx";
 import HackathonRequestStatusPage from "./pages/HackathonRequestStatusPage.jsx";
-// import ProfileEditForm from "./components/forms/ProfileEditForm.jsx";
+import ProfileEditForm from "./components/forms/ProfileEditForm.jsx";
 import SubscriptionPlans from "./components/navigation/SubscriptionPlans.jsx";
 import ChatDropDown from "./components/Chat/ChatDropDown.jsx";
 const appRouter = createBrowserRouter([
@@ -28,7 +28,7 @@ const appRouter = createBrowserRouter([
   { path: "/dashboard/hackathons/:id", element: <HackathonDetailsPage /> },
   { path: "/dashboard/hackathons/requests", element: <HackathonRequestPage /> },
   { path: "/dashboard/hackathons/requests/status", element: <HackathonRequestStatusPage /> },
-  // { path: "/dashboard/profile/:username/edit", element: <ProfileEditForm /> },
+  { path: "/dashboard/profile/:username/edit", element: <ProfileEditForm /> },
   { path: "/dashboard/chat", element: <ChatDropDown /> }
 ]);
 
