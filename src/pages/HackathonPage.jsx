@@ -12,14 +12,30 @@ const HackathonPage = () => {
   const [filteredHackathons, setFilteredHackathons] = useState([]);
 
   useEffect(() => {
-    // Get the username from localStorage or from a global state if stored after login
-    const username = localStorage.getItem("username"); // or from context or redux
-
+    const username = localStorage.getItem("username");
     if (!username) {
-      // If no username found in localStorage, redirect to login
-      navigate("/login");
+      navigate("/");
+      return;
+    }
+  
+    // Get user's location and store it in localStorage
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          localStorage.setItem("latitude", latitude);
+          localStorage.setItem("longitude", longitude);
+          console.log(position);
+        },
+        (error) => {
+          console.error("Error getting location:", error.message);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
     }
   }, [navigate]);
+  
 
   return (
     <GradientBackground className="min-h-screen">
