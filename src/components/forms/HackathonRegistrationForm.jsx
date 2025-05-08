@@ -141,7 +141,7 @@ const HackathonRegistrationForm = () => {
     { value: "", label: "Select Technology" },
     { value: "springboot", label: "Spring Boot" },
     { value: "react", label: "React" },
-    { value: "nodejs", label: "Node.js" },
+    { value: "Express", label: "Express" },
   ];
 
   const getAvailableOptions = (currentIndex) => {
