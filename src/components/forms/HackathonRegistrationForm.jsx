@@ -130,7 +130,7 @@ const HackathonRegistrationForm = () => {
       start: "",
       end: "",
     },
-    techStacks: [""],
+    techStacks: [],
     createdBy: localStorage.getItem("username"),
     createdById: localStorage.getItem("userId"),
   });
